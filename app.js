@@ -1,12 +1,14 @@
 function getComputerChoice() {
-    return Math.floor(Math.random() * 3) + 1;
-}
+    let computerChoice = Math.floor(Math.random() * 3);
 
-function getHumanChoice() {
-    return prompt("Choose your weapon:"
-        + "\n1. Rock"
-        + "\n2. Paper"
-        + "\n3. Scissors").toLowerCase();
+    switch (computerChoice) {
+        case 0:
+            return "rock";
+        case 1:
+            return "paper";
+        case 2:
+            return "scissors";
+    }
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -14,41 +16,41 @@ function playRound(humanChoice, computerChoice) {
 
     switch (humanChoice) {
         case "rock":
-            if (computerChoice == 1) {
+            if (computerChoice == "rock") {
                 message.textContent = "It's a draw!";
             }
-            else if (computerChoice == 2) {
+            else if (computerChoice == "paper") {
                 message.textContent = "You lose! Paper beats Rock.";
                 computerScore++;
             }
-            else if (computerChoice == 3) {
+            else if (computerChoice == "scissors") {
                 message.textContent = "You win! Rock beats Scissors.";
                 humanScore++;                
             }
             break;
         case "paper":
-            if (computerChoice == 1) {
+            if (computerChoice == "rock") {
                 message.textContent = "You win! Paper beats Rock.";
                 humanScore++;
             }
-            else if (computerChoice == 2) {
+            else if (computerChoice == "paper") {
                 message.textContent = "It's a draw!";
             }
-            else if (computerChoice == 3) {
+            else if (computerChoice == "scissors") {
                 message.textContent = "You lose! Scissors beats Paper.";
                 computerScore++;
             }
             break;
         case "scissors":
-            if (computerChoice == 1) {
+            if (computerChoice == "rock") {
                 message.textContent = "You lose! Rock beats Scissors.";
                 computerScore++;
             }
-            else if (computerChoice == 2) {
+            else if (computerChoice == "paper") {
                 message.textContent = "You win! Scissors beats Paper";
                 humanScore++;
             }
-            else if (computerChoice == 3) {
+            else if (computerChoice == "scissors") {
                 message.textContent = "It's a draw!";
             }
             break;
@@ -56,31 +58,6 @@ function playRound(humanChoice, computerChoice) {
     
     score.textContent = getScore();
     scoreContainer.appendChild(message);
-}
-        
-function playGame() {
-    console.log("Rock, Paper, Scissors!"
-        + "\nBest out of 5 rounds.");
-    
-    for (let i = 0; i < 5; i++) {
-        const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
-        
-        console.log(`Round ${i + 1}`
-            + `\n=======`);
-        
-        playRound(humanChoice, computerChoice);
-    }
-
-    console.log("======="
-        + "\nThe game has ended.");
-    if (humanScore > computerScore) {
-        console.log(`You win with the score ${humanScore}-${computerScore}!`);
-    } else if (humanScore < computerScore) {
-        console.log(`You lose with the score ${humanScore}-${computerScore}.`);
-    } else if (humanScore == computerScore) {
-        console.log(`The game is a draw with the score ${humanScore}-${computerScore}.`);
-    }
 }
 
 function getScore() {
@@ -100,5 +77,6 @@ buttons.forEach((button) => {
 
 const scoreContainer = document.querySelector(".score-container");
 const score = document.createElement("p");
+score.classList.add("score");
 score.textContent = getScore();
 scoreContainer.appendChild(score);

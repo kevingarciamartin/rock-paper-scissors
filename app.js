@@ -61,6 +61,9 @@ function playRound(humanChoice, computerChoice) {
 
     if (isGameOver()) {
         declareWinnerOfTheGame();
+        disableGameButtons();
+        addPlayAgain();
+        playAgain();
     }
 }
 
@@ -80,12 +83,47 @@ function declareWinnerOfTheGame() {
     log.innerHTML = `<h1>The winner is ${winner}!</h1>`;
 }
 
+function disableGameButtons() {
+    gameButtons.forEach((button) => {
+        button.disabled = true;
+    });
+}
+
+function enableGameButtons() {
+    gameButtons.forEach((button) => {
+        button.disabled = false;
+    });
+}
+
+function addPlayAgain() {
+    const playAgain = document.createElement("button");
+    playAgain.classList.add("play-again");
+    playAgain.textContent = "Play Again";
+    log.appendChild(playAgain);
+}
+
+function resetLog() {
+    log.innerHTML = "";
+}
+
+function playAgain() {
+    const playAgain = document.querySelector(".play-again");
+    playAgain.addEventListener("click", () => {
+        humanScore = 0;
+        computerScore = 0;
+        score.textContent = getScore();
+
+        enableGameButtons();
+        resetLog();
+    });
+}
+
 let humanScore = 0;
 let computerScore = 0;
 
-const buttons = document.querySelectorAll("button");
+const gameButtons = document.querySelectorAll("button");
 
-buttons.forEach((button) => {
+gameButtons.forEach((button) => {
     button.addEventListener("click", () => {
         playRound(button.id, getComputerChoice());
     });

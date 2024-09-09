@@ -8,16 +8,32 @@
     <title>Rock, Paper, Scissors!</title>
 </head>
 <body>
-    <main>
-        <section class="buttons">
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissors">Scissors</button>
-        </section>
-        
-        <section class="score-container"></section>
+    <header>
+        <h1>Rock, Paper, Scissors!</h1>
+        <p>Play against the computer. First to five wins.</p>
+    </header>
 
-        <section class="log"></section>
+    <main>
+        <div class="buttons">
+            <button id="rock">
+                <img src="img/rock.webp" alt="Rock">
+            </button>
+            <button id="paper">
+                <img src="img/paper.webp" alt="Paper">
+            </button>
+            <button id="scissors">
+                <img src="img/scissors.webp" alt="Scissors">
+            </button>
+        </div>
+        
+        <div class="score-container">
+            <span>You</span>
+            <span>Computer</span>
+            <span class="human-score">0</span>
+            <span class="computer-score">0</span>
+        </div>
+
+        <div class="log"></div>
     </main>
 </body>
 </html>

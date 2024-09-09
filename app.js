@@ -56,8 +56,17 @@ function playRound(humanChoice, computerChoice) {
             break;
     }
     
-    score.textContent = getScore();
+    // Remove oldest log message if the capacity is full
+    if (numberOfLogMessages === maximumLogMessages) {
+        let messages = log.getElementsByTagName("p");
+        log.removeChild(messages[0]);
+    }
+    
     log.appendChild(message);
+    
+    numberOfLogMessages = (numberOfLogMessages === maximumLogMessages) ? 5 : numberOfLogMessages + 1;
+
+    updateScore();
 
     if (isGameOver()) {
         declareWinnerOfTheGame();
@@ -67,8 +76,17 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function getScore() {
-    return `Score: You ${humanScore}-${computerScore} Computer`;
+function getHumanScore() {
+    return humanScore;
+}
+
+function getComputerScore() {
+    return computerScore;
+}
+
+function updateScore() {
+    document.querySelector(".human-score").textContent = `${humanScore}`;
+    document.querySelector(".computer-score").textContent = `${computerScore}`;
 }
 
 function isGameOver() {
@@ -80,7 +98,7 @@ function isGameOver() {
 
 function declareWinnerOfTheGame() {
     let winner = humanScore > computerScore ? "You" : "the Computer";
-    log.innerHTML = `<h1>The winner is ${winner}!</h1>`;
+    log.innerHTML = `<h2>The winner is ${winner}!</h2>`;
 }
 
 function disableGameButtons() {
@@ -104,6 +122,7 @@ function addPlayAgain() {
 
 function resetLog() {
     log.innerHTML = "";
+    numberOfLogMessages = 0;
 }
 
 function playAgain() {
@@ -111,8 +130,8 @@ function playAgain() {
     playAgain.addEventListener("click", () => {
         humanScore = 0;
         computerScore = 0;
-        score.textContent = getScore();
 
+        updateScore();
         enableGameButtons();
         resetLog();
     });
@@ -120,6 +139,9 @@ function playAgain() {
 
 let humanScore = 0;
 let computerScore = 0;
+
+const maximumLogMessages = 5;
+let numberOfLogMessages = 0;
 
 const gameButtons = document.querySelectorAll("button");
 
@@ -129,11 +151,5 @@ gameButtons.forEach((button) => {
     });
 });
 
-const scoreContainer = document.querySelector(".score-container");
+const scoreContainer = document.querySelector(".score-container"); 
 const log = document.querySelector(".log");
-
-const score = document.createElement("p");
-score.classList.add("score");
-score.textContent = getScore();
-
-scoreContainer.appendChild(score);

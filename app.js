@@ -57,11 +57,27 @@ function playRound(humanChoice, computerChoice) {
     }
     
     score.textContent = getScore();
-    scoreContainer.appendChild(message);
+    log.appendChild(message);
+
+    if (isGameOver()) {
+        declareWinnerOfTheGame();
+    }
 }
 
 function getScore() {
     return `Score: You ${humanScore}-${computerScore} Computer`;
+}
+
+function isGameOver() {
+    if (humanScore === 5 || computerScore === 5) {
+        return true;
+    }
+    return false;
+}
+
+function declareWinnerOfTheGame() {
+    let winner = humanScore > computerScore ? "You" : "the Computer";
+    log.innerHTML = `<h1>The winner is ${winner}!</h1>`;
 }
 
 let humanScore = 0;
@@ -76,7 +92,10 @@ buttons.forEach((button) => {
 });
 
 const scoreContainer = document.querySelector(".score-container");
+const log = document.querySelector(".log");
+
 const score = document.createElement("p");
 score.classList.add("score");
 score.textContent = getScore();
+
 scoreContainer.appendChild(score);

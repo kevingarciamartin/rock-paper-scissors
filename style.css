@@ -10,6 +10,10 @@ body {
     font-family: 'Permanent Marker';
 }
 
+button {
+    cursor: pointer;
+}
+
 header {
     margin-bottom: 2rem;
     text-align: center;
